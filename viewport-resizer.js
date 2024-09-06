@@ -46,6 +46,11 @@
                 
                 #custom-toolbar .material-icons {
                     vertical-align: middle;
+                    cursor: pointer;
+                }
+
+                #custom-toolbar a:hover {
+                    background: rgba(255, 255, 255, 0.3);
                 }
             </style>
         `;
