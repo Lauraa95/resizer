@@ -25,25 +25,26 @@
                 #custom-toolbar a { color: white; text-decoration: none; margin: 5px; padding: 5px 10px; background: rgba(255, 255, 255, 0.1); border-radius: 4px; }
                 #custom-toolbar .material-icons { vertical-align: middle; cursor: pointer; }
                 #custom-toolbar a:hover { background: rgba(255, 255, 255, 0.3); }
-                #viewport-wrapper { width: 100%; height: 100%; overflow: auto; }
+                body { transform-origin: top left; overflow: auto; }
+                #viewport-wrapper { transform-origin: top left; overflow: auto; }
             </style>
         `;
         $("head").append(style);
 
         var toolbarHtml = `
             <div id="custom-toolbar">
-                <a href="#" data-viewport="375x667">iPhone 8</a>
-                <a href="#" data-viewport="390x844">iPhone 13</a>
-                <a href="#" data-viewport="430x932">iPhone 15 Pro Max</a>
-                <a href="#" data-viewport="768x1024">iPad mini</a>
-                <a href="#" data-viewport="1024x1366">iPad Pro</a>
-                <a href="#" data-viewport="1440x900">MacBook 13"</a>
-                <a href="#" data-viewport="1536x960">MacBook 16"</a>
-                <a href="#" data-viewport="360x800">Galaxy S22</a>
-                <a href="#" data-viewport="360x800">Galaxy A13</a>
-                <a href="#" data-viewport="1920x1080">HDTV 1080p</a>
-                <a href="#" id="zoom-in" class="material-icons">zoom_in</a>
-                <a href="#" id="zoom-out" class="material-icons">zoom_out</a>
+                <a href="javascript:void(0);" data-viewport="375x667">iPhone 8</a>
+                <a href="javascript:void(0);" data-viewport="390x844">iPhone 13</a>
+                <a href="javascript:void(0);" data-viewport="430x932">iPhone 15 Pro Max</a>
+                <a href="javascript:void(0);" data-viewport="768x1024">iPad mini</a>
+                <a href="javascript:void(0);" data-viewport="1024x1366">iPad Pro</a>
+                <a href="javascript:void(0);" data-viewport="1440x900">MacBook 13"</a>
+                <a href="javascript:void(0);" data-viewport="1536x960">MacBook 16"</a>
+                <a href="javascript:void(0);" data-viewport="360x800">Samsung Galaxy S22</a>
+                <a href="javascript:void(0);" data-viewport="360x800">Samsung Galaxy A13 (2022)</a>
+                <a href="javascript:void(0);" data-viewport="1920x1080">HDTV 1080p</a>
+                <a href="javascript:void(0);" id="zoom-in" class="material-icons">zoom_in</a>
+                <a href="javascript:void(0);" id="zoom-out" class="material-icons">zoom_out</a>
             </div>
         `;
 
@@ -51,14 +52,12 @@
 
         function setViewport(width, height) {
             $('meta[name=viewport]').remove();
-            $('head').append('<meta name="viewport" content="width=' + width + ', initial-scale=1">');
+            $('head').append('<meta name="viewport" content="width=' + width + '">');
 
             $('#viewport-wrapper').css({
                 width: width + 'px',
                 height: height + 'px',
-                border: '1px solid #ccc',
                 margin: '0 auto',
-                position: 'relative'
             });
         }
 
@@ -69,7 +68,6 @@
             if (zoomLevel > 2) zoomLevel = 2;
             $("#viewport-wrapper").css({
                 'transform': 'scale(' + zoomLevel + ')',
-                'transform-origin': '0 0',
                 'overflow': 'auto'
             });
         });
@@ -79,7 +77,6 @@
             if (zoomLevel < 1) zoomLevel = 1;
             $("#viewport-wrapper").css({
                 'transform': 'scale(' + zoomLevel + ')',
-                'transform-origin': '0 0',
                 'overflow': 'auto'
             });
         });
