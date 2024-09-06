@@ -75,16 +75,31 @@
         $("body").append(toolbarHtml);
 
         function setViewport(width, height) {
-            $('body').css({
-                'width': width + 'px',
-                'height': height + 'px',
-                'overflow': 'hidden'
+            var iframe = $('#viewport-iframe');
+            if (iframe.length === 0) {
+                iframe = $('<iframe>', {
+                    id: 'viewport-iframe',
+                    css: {
+                        width: '100%',
+                        height: '100%',
+                        position: 'fixed',
+                        top: 0,
+                        left: 0,
+                        border: 'none',
+                        zIndex: 9998,
+                        overflow: 'auto'
+                    }
+                }).appendTo('body');
+            }
+            iframe.css({
+                width: width + 'px',
+                height: height + 'px',
             });
         }
         
         $('#custom-toolbar a[data-viewport]').click(function() {
             var dimensions = $(this).attr('data-viewport').split('x');
-            setViewport(dimensions[0], dimensions[1]);
+            setViewport(parseInt(dimensions[0]), parseInt(dimensions[1]));
         });
 
         var zoomLevel = 1;
