@@ -1,7 +1,6 @@
 (function() {
     if (document.getElementById('custom-toolbar')) return;
 
-    // Load jQuery if not already loaded
     var loadJQuery = function(callback) {
         if (window.jQuery === undefined || window.jQuery.fn.jquery !== '3.5.1') {
             var script = document.createElement('script');
@@ -19,7 +18,6 @@
     };
 
     loadJQuery(function($) {
-        // Add custom styles
         var style = `
             <style>
                 #custom-toolbar {
@@ -53,7 +51,6 @@
         `;
         $("head").append(style);
         
-        // Add toolbar HTML
         var toolbarHtml = `
             <div id="custom-toolbar">
                 <a href="javascript:void(0);" data-viewport="375x667">iPhone 8</a>
@@ -80,13 +77,11 @@
             });
         }
         
-        // Add event listeners for viewport links
         $('#custom-toolbar a[data-viewport]').click(function() {
             var dimensions = $(this).attr('data-viewport').split('x');
             setViewport(dimensions[0], dimensions[1]);
         });
 
-        // Add event listeners for zoom controls
         var zoomLevel = 1;
         
         $("#zoom-in").click(function() {
@@ -107,7 +102,6 @@
             });
         });
 
-        // Add Google Material Icons
         $("head").append('<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">');
     });
 })();
