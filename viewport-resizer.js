@@ -74,25 +74,18 @@
         `;
         $("body").append(toolbarHtml);
 
+        // Ensure scrolling is enabled
+        $('html, body').css({
+            'width': '100%',
+            'height': '100%',
+            'overflow': 'auto'
+        });
+
         function setViewport(width, height) {
-            var scale = Math.min(window.innerWidth / width, window.innerHeight / height);
-            var cssTransform = 'scale(' + scale + ')';
-
-            $('#viewport-container').css({
-                'width': width + 'px',
-                'height': height + 'px',
-                'transform': cssTransform,
-                'transform-origin': 'top left',
-                'overflow': 'auto'
-            });
-
-            $('html, body').css({
-                'width': '100%',
-                'height': '100%',
-                'overflow': 'auto'
-            });
+            $('meta[name=viewport]').remove();
+            $('head').append('<meta name="viewport" content="width=' + width + ', height=' + height + '">');
         }
-        
+
         $('#custom-toolbar a[data-viewport]').click(function() {
             var dimensions = $(this).attr('data-viewport').split('x');
             setViewport(parseInt(dimensions[0]), parseInt(dimensions[1]));
@@ -103,7 +96,7 @@
         $("#zoom-in").click(function() {
             zoomLevel += 0.1;
             if (zoomLevel > 2) zoomLevel = 2;
-            $('#viewport-container').css({
+            $("body").css({
                 'transform': 'scale(' + zoomLevel + ')',
                 'transform-origin': '0 0'
             });
@@ -111,21 +104,12 @@
 
         $("#zoom-out").click(function() {
             zoomLevel -= 0.1;
-            if (zoomLevel < 1) zoomLevel = 1; // Show proper viewport size without zooming out too much
-            $('#viewport-container').css({
+            if (zoomLevel < 1) zoomLevel = 1;
+            $("body").css({
                 'transform': 'scale(' + zoomLevel + ')',
                 'transform-origin': '0 0'
             });
         });
-
-        if ($('#viewport-container').length === 0) {
-            var viewportContainerHtml = `
-                <div id="viewport-container" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: auto;">
-                    ${$('body').html()}
-                </div>
-            `;
-            $('body').html(viewportContainerHtml);
-        }
 
         $("head").append('<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">');
     });
